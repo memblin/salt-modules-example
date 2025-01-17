@@ -7,13 +7,8 @@ import pytest
 from conftest import id_to_fqdn_test_data
 
 import salt.runners.config as config
-from modules._modules import expmod
+from modules._utils import expmodutil
 from modules._runners import exprunner
-
-
-@pytest.fixture
-def cachedir(tmp_path):
-    return tmp_path / "cache"
 
 
 @pytest.fixture()
@@ -27,7 +22,7 @@ def configure_loader_modules():
         exprunner: {
             "__salt__": {
                 "config.get": config.get,
-                "expmodutil.id_to_fqdn": expmod.id_to_fqdn,
+                "expmodutil.id_to_fqdn": expmodutil.id_to_fqdn,
             },
         },
         # config needs dunders
