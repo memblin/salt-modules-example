@@ -2,11 +2,9 @@
 Experimental Execution Module
 """
 
-import logging
-
+import expmodutil
 
 __virtualname__ = "expmod"
-log = logging.getLogger(__name__)
 
 
 def __virtual__():
@@ -22,8 +20,9 @@ def id_to_fqdn(minion_id=None):
 
     # Get first config values found from:
     #  minion config > grains > pillar
+    # using salt.modules.config
     expmod_config = __salt__["config.get"]("expmod", {})
     domain = expmod_config.get("domain", "example.com")
 
-    # Retrun minio_id with domain appended
-    return minion_id + "." + domain
+    # Return minion_id with domain appended
+    return expmodutil.id_to_fqdn(minion_id, domain)

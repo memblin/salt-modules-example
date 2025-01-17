@@ -2,26 +2,13 @@
 Tests for modules/_modules/expmod.py
 """
 
-import logging
 import pytest
 
 from conftest import id_to_fqdn_test_data
 
 import salt.modules.config as config
 from modules._modules import expmod
-
-
-log = logging.getLogger(__name__)
-
-
-id_to_fqdn_test_data = [
-    # Defaulted domain
-    ("app-1", None, "app-1.example.com"),
-    # Expected domain set that matches the default
-    ("app-2", "example.com", "app-2.example.com"),
-    # Expected domain set that does not match the default
-    ("app-3", "example.net", "app-3.example.net"),
-]
+from modules._utils import expmodutil
 
 
 @pytest.fixture()
@@ -39,6 +26,7 @@ def configure_loader_modules():
         expmod: {
             "__salt__": {
                 "config.get": config.get,
+                "expmodutil.id_to_fqdn": expmodutil.id_to_fqdn,
             },
         },
         # config needs dunders
