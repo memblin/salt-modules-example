@@ -38,12 +38,7 @@ def test_id_to_fqdn_via_config(minion_id, domain, expected_fqdn):
     if domain:
         # Merge fixture content into grains and config opts
         # when a domain is prsent in test data
-        exprunner.__grains__.update({"id": minion_id})
         config.__opts__.update({"expmod": {"domain": domain}})
-    else:
-        # Merge fixture content into grains but skip config opts
-        # when no domain is present in test data
-        exprunner.__grains__.update({"id": minion_id})
 
     # Verify the returned fqdn matches the expected fqdn
     assert exprunner.id_to_fqdn(minion_id) == expected_fqdn
