@@ -26,7 +26,7 @@ def id_to_fqdn(minion_id):
     Get config options from the minion with salt.modules.config
     """
     local = salt.client.LocalClient()
-    expmod_config = local.cmd(minion_id, "config.get", ["expmod"], default={}).get(minion_id, {})
+    expmod_config = local.cmd(minion_id, "config.get", ["expmod", {}]).get(minion_id, {})
     domain = expmod_config.get("domain", "example.com")
 
     # Return minion_id with domain appended
